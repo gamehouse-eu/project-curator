@@ -25,6 +25,12 @@ namespace Ogxd.ProjectCurator
             }
 
             AssetInfo assetInfo = ProjectCurator.GetAsset(path);
+
+            if(assetInfo == null)
+            {
+                return;
+            }
+            
             int count = assetInfo.referencers.Count;
 
             if(count > 0)
