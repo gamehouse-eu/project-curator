@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
+using UnityEditor.AddressableAssets;
+using UnityEditor.AddressableAssets.Settings;
 using UnityEngine;
 
 namespace Ogxd.ProjectCurator
@@ -128,6 +130,16 @@ namespace Ogxd.ProjectCurator
             }
 
             return IncludedInBuild.NotIncluded;
+        }
+        
+        public bool IsAddressable
+        {
+            get
+            {
+                AddressableAssetSettings settings = AddressableAssetSettingsDefaultObject.Settings;
+                AddressableAssetEntry entry = settings.FindAssetEntry(AssetDatabase.AssetPathToGUID(path));
+                return entry != null;
+            }
         }
     }
 }

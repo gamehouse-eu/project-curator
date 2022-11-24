@@ -32,10 +32,18 @@ namespace Ogxd.ProjectCurator
             }
             
             int count = assetInfo.referencers.Count;
+            bool hasRefs = count > 0;
 
-            if(count > 0)
+            const string NoRefAddressable = "<color=#7FD6FC>A</color>";
+
+            if(hasRefs || assetInfo.IsAddressable)
             {
-                var content = new GUIContent(count.ToString());
+                string countText = count.ToString();
+                string text = hasRefs
+                    ? assetInfo.IsAddressable ? $"<color=#7FD6FC>{countText}</color>" : countText
+                    : NoRefAddressable;
+
+                var content = new GUIContent(text);
                 r.width = 0f;
                 r.xMin -= 100f;
                 GUI.Label(r, content, MiniLabelAlignRight);
@@ -43,6 +51,6 @@ namespace Ogxd.ProjectCurator
         }
 
         static GUIStyle _miniLabelAlignRight;
-        static GUIStyle MiniLabelAlignRight => _miniLabelAlignRight ??= new GUIStyle(EditorStyles.miniLabel) { alignment = TextAnchor.MiddleRight };
+        static GUIStyle MiniLabelAlignRight => _miniLabelAlignRight ??= new GUIStyle(EditorStyles.miniLabel) { alignment = TextAnchor.MiddleRight, richText = true};
     }
 }
