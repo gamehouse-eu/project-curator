@@ -7,7 +7,11 @@ namespace Ogxd.ProjectCurator
     [Serializable]
     public class ProjectCuratorData
     {
+#if UNITY_EDITOR_OSX
+        private const string JSON_PATH = "ProjectSettings\\ProjectCuratorSettings.json";
+#else
         private const string JSON_PATH = "ProjectSettings/ProjectCuratorSettings.json";
+#endif
 
         [SerializeField]
         private bool isUpToDate = false;
